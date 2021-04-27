@@ -2,7 +2,9 @@ package io.github.guild.application.controller.guild;
 
 import io.github.guild.application.command.CommandResult;
 import io.github.guild.application.command.guild.CreateGuildCommand;
+import io.github.guild.application.command.guild.DeleteGuildCommand;
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
+import io.github.guild.application.controller.guild.request.DeleteGuildRequest;
 import io.github.guild.application.controller.guild.request.GuildAccessTypeEnum;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
 import io.github.guild.application.handler.CommandHandler;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class GuildController implements GuildApi {
     private final CommandHandler<CreateGuildCommand> createGuildCommandHandler;
+    private final CommandHandler<DeleteGuildCommand> deleteGuildCommandHandler;
 
     @Override
     public ResponseEntity<CreateGuildResponse> create(@Valid CreateGuildRequest createGuildRequest) {
@@ -35,6 +38,12 @@ public class GuildController implements GuildApi {
 
         CommandResult commandResult = createGuildCommandHandler.handle(addRoleCommand);
         return new ResponseEntity<>(new CreateGuildResponse(commandResult.getId()), HttpStatus.CREATED);
+    }
+
+    @Override
+    public void delete(@Valid DeleteGuildRequest deleteGuildRequest) {
+        var addRoleCommand = new DeleteGuildCommand(deleteGuildRequest.getGuildId());
+        deleteGuildCommandHandler.handle(addRoleCommand);
     }
 
     private GuildAccessType mapGuildAccessType(GuildAccessTypeEnum guildAccessTypeEnum) {

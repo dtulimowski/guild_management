@@ -5,12 +5,11 @@ import io.github.guild.domain.entity.Guild;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @AllArgsConstructor
@@ -32,5 +31,10 @@ public class InMemoryAssigneeRepository implements AssigneeRepository {
         DATABASE.put(guildId, assignees);
 
         return assignee;
+    }
+
+    @Override
+    public void delete(@NonNull Long id) {
+        DATABASE.remove(id);
     }
 }

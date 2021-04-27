@@ -1,6 +1,7 @@
 package io.github.guild.application.controller.guild;
 
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
+import io.github.guild.application.controller.guild.request.DeleteGuildRequest;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,5 +21,10 @@ public interface GuildApi {
     @ApiResponse(responseCode = "204", description = "Successfully created a guild")
     @ApiResponse(responseCode = "400", description = "Bad request")
     ResponseEntity<CreateGuildResponse> create(@RequestBody CreateGuildRequest createGuildRequest);
+
+    @Operation(description = "Delete guild")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+    @ApiResponse(responseCode = "204", description = "Successfully deleted a guild")
+    void delete(@RequestBody DeleteGuildRequest deleteGuildRequest);
 
 }
