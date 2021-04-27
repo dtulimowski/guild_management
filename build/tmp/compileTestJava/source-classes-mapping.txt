@@ -1,0 +1,19 @@
+io/github/guild/application/controller/guild/GuildTestApiResponseMapper.java
+ io.github.guild.application.controller.guild.GuildTestApiResponseMapper
+io/github/guild/application/IntegrationTest.java
+ io.github.guild.application.IntegrationTest
+io/github/guild/application/controller/guild/DeleteGuildTests.java
+ io.github.guild.application.controller.guild.DeleteGuildTests
+io/github/guild/application/controller/guild/CreateGuildTests.java
+ io.github.guild.application.controller.guild.CreateGuildTests
+io/github/guild/application/helper/ErrorResponse.java
+ io.github.guild.application.helper.ErrorResponse
+ io.github.guild.application.helper.ErrorResponse$ErrorsEntity
+io/github/guild/application/controller/guild/request/DeleteGuildTestRequest.java
+ io.github.guild.application.controller.guild.request.DeleteGuildTestRequest
+ io.github.guild.application.controller.guild.request.DeleteGuildTestRequest$DeleteGuildTestRequestBuilder
+io/github/guild/application/controller/guild/request/CreateGuildTestRequest.java
+ io.github.guild.application.controller.guild.request.CreateGuildTestRequest
+ io.github.guild.application.controller.guild.request.CreateGuildTestRequest$CreateGuildTestRequestBuilder
+io/github/guild/application/controller/guild/GuildTestApi.java
+ io.github.guild.application.controller.guild.GuildTestApi
