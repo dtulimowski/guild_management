@@ -4,7 +4,6 @@ import io.github.guild.application.command.CommandResult;
 import io.github.guild.application.command.guild.CreateGuildCommand;
 import io.github.guild.application.command.guild.DeleteGuildCommand;
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
-import io.github.guild.application.controller.guild.request.DeleteGuildRequest;
 import io.github.guild.application.controller.guild.request.GuildAccessTypeEnum;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
 import io.github.guild.application.handler.CommandHandler;
@@ -17,9 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,9 +38,10 @@ public class GuildController implements GuildApi {
     }
 
     @Override
-    public void delete(@Valid DeleteGuildRequest deleteGuildRequest) {
-        var addRoleCommand = new DeleteGuildCommand(deleteGuildRequest.getGuildId());
+    public ResponseEntity<Void> delete(UUID guildId) {
+        var addRoleCommand = new DeleteGuildCommand(guildId);
         deleteGuildCommandHandler.handle(addRoleCommand);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     private GuildAccessType mapGuildAccessType(GuildAccessTypeEnum guildAccessTypeEnum) {
