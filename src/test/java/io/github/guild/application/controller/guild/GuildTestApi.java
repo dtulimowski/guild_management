@@ -23,4 +23,17 @@ public class GuildTestApi {
                 .extract()
                 .response();
     }
+    public Response deleteGuild(String uuid, HttpStatus expectedStatus) {
+        return given()
+                .relaxedHTTPSValidation()
+                .contentType(ContentType.JSON)
+                .pathParam("uuid", uuid)
+                .when()
+                .delete("/guilds/{uuid}")
+                .then()
+                .statusCode(expectedStatus.value())
+                .extract()
+                .response();
+    }
+
 }

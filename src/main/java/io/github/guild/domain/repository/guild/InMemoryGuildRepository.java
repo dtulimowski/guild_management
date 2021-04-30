@@ -6,10 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @AllArgsConstructor
@@ -27,5 +24,15 @@ public class InMemoryGuildRepository implements GuildRepository {
         DATABASE.put(id, guild);
 
         return guild;
+    }
+
+    @Override
+    public void delete(UUID guildId) {
+        DATABASE.entrySet().removeIf(guild -> guild.getValue().getGuildId().equals(guildId));
+    }
+
+    @Override
+    public Optional<Guild> get(UUID guildId) {
+        return DATABASE.values().stream().filter(guild -> guild.getGuildId().equals(guildId)).findAny();
     }
 }
