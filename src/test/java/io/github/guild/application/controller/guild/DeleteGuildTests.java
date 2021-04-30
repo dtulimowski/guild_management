@@ -48,6 +48,10 @@ class DeleteGuildTests extends IntegrationTest {
 
         Guild guild = createGuild(guildAccessType);
         guildTestApi.deleteGuild(guild.getGuildId().toString(), HttpStatus.NO_CONTENT);
+
+        Response response = guildTestApi.deleteGuild(guild.getGuildId().toString(), HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = guildTestApiResponseMapper.mapToError(response);
+        Assertions.assertTrue(errorResponse.getErrorDetail().contains("Guild not found"));
     }
 
     @ParameterizedTest(name = "I delete a guild with non-existent UUID and access: {0}")
@@ -58,7 +62,7 @@ class DeleteGuildTests extends IntegrationTest {
         Response response = guildTestApi.deleteGuild(UUID.randomUUID().toString(), HttpStatus.NOT_FOUND);
 
         ErrorResponse errorResponse = guildTestApiResponseMapper.mapToError(response);
-        Assertions.assertTrue(errorResponse.getMessage().contains("Item not found"));
+        Assertions.assertTrue(errorResponse.getErrorDetail().contains("Guild not found"));
     }
 
     @ParameterizedTest(name = "I delete a guild with incorrect UUID and access: {0}")
@@ -75,6 +79,8 @@ class DeleteGuildTests extends IntegrationTest {
 
         Guild guild = createGuild(guildAccessType);
         guildTestApi.deleteGuild(guild.getGuildId().toString(), HttpStatus.NO_CONTENT);
-        guildTestApi.deleteGuild(guild.getGuildId().toString(), HttpStatus.NOT_FOUND);
+        Response response = guildTestApi.deleteGuild(guild.getGuildId().toString(), HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = guildTestApiResponseMapper.mapToError(response);
+        Assertions.assertTrue(errorResponse.getErrorDetail().contains("Guild not found"));
     }
 }

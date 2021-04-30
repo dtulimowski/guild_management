@@ -42,8 +42,8 @@ public class GuildController implements GuildApi {
 
     @Override
     public ResponseEntity<Void> delete(UUID guildId) {
-        var addRoleCommand = new DeleteGuildCommand(guildId);
-        deleteGuildCommandHandler.handle(addRoleCommand);
+        var deleteGuildCommand = new DeleteGuildCommand(guildId);
+        deleteGuildCommandHandler.handle(deleteGuildCommand);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
