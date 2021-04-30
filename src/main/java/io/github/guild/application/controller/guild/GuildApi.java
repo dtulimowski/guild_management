@@ -1,16 +1,16 @@
 package io.github.guild.application.controller.guild;
 
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
+import io.github.guild.application.controller.guild.request.DeleteGuildRequest;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/guilds")
 @Tag(name = "Guild Management API")
@@ -23,8 +23,8 @@ public interface GuildApi {
     ResponseEntity<CreateGuildResponse> create(@RequestBody CreateGuildRequest createGuildRequest);
 
     @Operation(description = "Delete guild")
-    @DeleteMapping(value = "/{guildId}")
+    @PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
     @ApiResponse(responseCode = "204", description = "Successfully deleted a guild")
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    ResponseEntity<Void> delete(@PathVariable @NotNull UUID guildId);
+    void delete(@RequestBody DeleteGuildRequest deleteGuildRequest);
+
 }

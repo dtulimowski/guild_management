@@ -6,7 +6,6 @@ import io.github.guild.application.handler.CommandHandler;
 import io.github.guild.domain.entity.Guild;
 import io.github.guild.domain.repository.assignee.AssigneeRepository;
 import io.github.guild.domain.repository.guild.GuildRepository;
-import io.github.guild.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +17,11 @@ public class DeleteGuildCommandHandler implements CommandHandler<DeleteGuildComm
 
     @Override
     public CommandResult handle(DeleteGuildCommand command) {
-        Guild guild = guildRepository.get(command.getGuildId()).orElseThrow(
-                () -> new NotFoundException("Guild not found"));
-        guildRepository.delete(command.getGuildId());
+
+        Guild guild = guildRepository.get(command.getGuildId());
         assigneeRepository.delete(guild.getId());
+
+        guildRepository.delete(command.getGuildId());
 
         return null;
     }

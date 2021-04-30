@@ -6,8 +6,6 @@ import io.restassured.response.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 import static io.restassured.RestAssured.given;
 
 @Service
@@ -26,13 +24,13 @@ public class GuildTestApi {
                 .response();
     }
 
-    public Response deleteGuild(String uuid, HttpStatus expectedStatus) {
+    public Response deleteGuild(DeleteGuildTests deleteGuildRequest, HttpStatus expectedStatus) {
         return given()
                 .relaxedHTTPSValidation()
                 .contentType(ContentType.JSON)
-                .pathParam("uuid", uuid)
+                .body(deleteGuildRequest)
                 .when()
-                .delete("/guilds/{uuid}")
+                .post("/guilds")
                 .then()
                 .statusCode(expectedStatus.value())
                 .extract()

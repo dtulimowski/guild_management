@@ -54,7 +54,7 @@ class CreateGuildTests extends IntegrationTest {
                 .build(), HttpStatus.BAD_REQUEST);
 
         ErrorResponse errorResponse = guildTestApiResponseMapper.mapToError(response);
-        Assertions.assertEquals("must not be empty", errorResponse.getErrors().getName());
+        Assertions.assertEquals("must not be null", errorResponse.getErrors().getName());
     }
 
     @Test

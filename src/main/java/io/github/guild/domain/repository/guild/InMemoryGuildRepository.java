@@ -32,7 +32,9 @@ public class InMemoryGuildRepository implements GuildRepository {
     }
 
     @Override
-    public Optional<Guild> get(UUID guildId) {
-        return DATABASE.values().stream().filter(guild -> guild.getGuildId().equals(guildId)).findAny();
+    public Guild get(UUID guildId) {
+        Optional<Map.Entry<Long, Guild>> guild = DATABASE.entrySet().stream().filter(longGuildEntry -> longGuildEntry.getValue().getGuildId().equals(guildId)).findFirst();
+        return guild.map(Map.Entry::getValue).orElse(null);
     }
+
 }
