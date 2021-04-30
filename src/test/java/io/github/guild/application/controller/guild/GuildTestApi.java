@@ -23,17 +23,4 @@ public class GuildTestApi {
                 .extract()
                 .response();
     }
-
-    public Response deleteGuild(DeleteGuildTests deleteGuildRequest, HttpStatus expectedStatus) {
-        return given()
-                .relaxedHTTPSValidation()
-                .contentType(ContentType.JSON)
-                .body(deleteGuildRequest)
-                .when()
-                .post("/guilds")
-                .then()
-                .statusCode(expectedStatus.value())
-                .extract()
-                .response();
-    }
 }

@@ -1,5 +1,6 @@
 package io.github.guild.application.controller.guild.request;
 
+import io.github.guild.domain.valueobject.GuildAccessType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
