@@ -3,6 +3,7 @@ package io.github.guild.domain.repository.assignee;
 import io.github.guild.domain.entity.Assignee;
 import io.github.guild.domain.entity.Guild;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -32,5 +33,10 @@ public class InMemoryAssigneeRepository implements AssigneeRepository {
         DATABASE.put(guildId, assignees);
 
         return assignee;
+    }
+
+    @Override
+    public void delete(@NonNull Long id) {
+        DATABASE.remove(id);
     }
 }
