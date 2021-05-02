@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommandResult {
-    private UUID id;
+    private UUID guildId;
 }

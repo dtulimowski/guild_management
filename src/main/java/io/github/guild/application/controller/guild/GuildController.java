@@ -6,10 +6,14 @@ import io.github.guild.application.command.guild.DeleteGuildCommand;
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
 import io.github.guild.application.controller.guild.request.GuildAccessTypeEnum;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
+import io.github.guild.application.controller.guild.response.GetGuildResponse;
+import io.github.guild.application.entity.GuildView;
 import io.github.guild.application.handler.CommandHandler;
+import io.github.guild.application.service.guild.GuildService;
 import io.github.guild.domain.entity.Assignee;
 import io.github.guild.domain.valueobject.GuildAccessType;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,6 +33,9 @@ public class GuildController implements GuildApi {
     private final CommandHandler<CreateGuildCommand> createGuildCommandHandler;
     private final CommandHandler<DeleteGuildCommand> deleteGuildCommandHandler;
 
+    @Autowired
+    private GuildService guildService;
+
     @Override
     public ResponseEntity<CreateGuildResponse> create(@Valid CreateGuildRequest createGuildRequest) {
         var addRoleCommand = new CreateGuildCommand(createGuildRequest.getName(),
@@ -37,7 +44,7 @@ public class GuildController implements GuildApi {
                 mapAssignees(createGuildRequest.getAssignees()));
 
         CommandResult commandResult = createGuildCommandHandler.handle(addRoleCommand);
-        return new ResponseEntity<>(new CreateGuildResponse(commandResult.getId()), HttpStatus.CREATED);
+        return new ResponseEntity<>(new CreateGuildResponse(commandResult.getGuildId()), HttpStatus.CREATED);
     }
 
     @Override
@@ -45,6 +52,12 @@ public class GuildController implements GuildApi {
         var deleteGuildCommand = new DeleteGuildCommand(guildId);
         deleteGuildCommandHandler.handle(deleteGuildCommand);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<GetGuildResponse> getByID(UUID guildId) {
+        GuildView guildView = guildService.getGuildView(guildId);
+        return new ResponseEntity<>(new GetGuildResponse(guildView), HttpStatus.OK);
     }
 
     private GuildAccessType mapGuildAccessType(GuildAccessTypeEnum guildAccessTypeEnum) {
