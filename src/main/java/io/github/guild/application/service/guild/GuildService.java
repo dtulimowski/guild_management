@@ -4,15 +4,16 @@ import io.github.guild.application.entity.GuildView;
 import io.github.guild.domain.entity.Guild;
 import io.github.guild.domain.repository.guild.GuildRepository;
 import io.github.guild.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class GuildService {
-    @Autowired
-    private GuildRepository guildRepository;
+
+    private final GuildRepository guildRepository;
 
     public GuildView getGuildView(UUID guildID) {
         Guild guild = guildRepository.get(guildID).orElseThrow(

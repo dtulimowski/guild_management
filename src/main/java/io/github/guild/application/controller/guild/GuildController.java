@@ -31,9 +31,7 @@ import java.util.stream.Collectors;
 public class GuildController implements GuildApi {
     private final CommandHandler<CreateGuildCommand> createGuildCommandHandler;
     private final CommandHandler<DeleteGuildCommand> deleteGuildCommandHandler;
-
-    @Autowired
-    private GuildService guildService;
+    private final GuildService guildService;
 
     @Override
     public ResponseEntity<CreateGuildResponse> create(@Valid CreateGuildRequest createGuildRequest) {
