@@ -12,5 +12,5 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommandResult {
-    private UUID guildId;
+    private UUID uuid;
 }

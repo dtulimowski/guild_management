@@ -6,7 +6,6 @@ import io.github.guild.application.command.guild.DeleteGuildCommand;
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
 import io.github.guild.application.controller.guild.request.GuildAccessTypeEnum;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
-import io.github.guild.application.controller.guild.response.GetGuildResponse;
 import io.github.guild.application.entity.GuildView;
 import io.github.guild.application.handler.CommandHandler;
 import io.github.guild.application.service.guild.GuildService;
@@ -44,7 +43,7 @@ public class GuildController implements GuildApi {
                 mapAssignees(createGuildRequest.getAssignees()));
 
         CommandResult commandResult = createGuildCommandHandler.handle(addRoleCommand);
-        return new ResponseEntity<>(new CreateGuildResponse(commandResult.getGuildId()), HttpStatus.CREATED);
+        return new ResponseEntity<>(new CreateGuildResponse(commandResult.getUuid()), HttpStatus.CREATED);
     }
 
     @Override
@@ -55,9 +54,9 @@ public class GuildController implements GuildApi {
     }
 
     @Override
-    public ResponseEntity<GetGuildResponse> getByID(UUID guildId) {
+    public ResponseEntity<GuildView> getByID(UUID guildId) {
         GuildView guildView = guildService.getGuildView(guildId);
-        return new ResponseEntity<>(new GetGuildResponse(guildView), HttpStatus.OK);
+        return new ResponseEntity<>(guildView, HttpStatus.OK);
     }
 
     private GuildAccessType mapGuildAccessType(GuildAccessTypeEnum guildAccessTypeEnum) {

@@ -52,10 +52,10 @@ class GetGuildTests extends IntegrationTest {
         Response response = guildTestApi.getGuildByUUID(guild.getGuildId().toString(), HttpStatus.OK);
 
         Assertions.assertAll(
-                () -> Assertions.assertEquals(guild.getGuildId().toString(), response.jsonPath().get("guildview.guildId")),
-                () -> Assertions.assertEquals("Greedy Parasites", response.jsonPath().get("guildview.name")),
-                () -> Assertions.assertEquals("en", response.jsonPath().get("guildview.locale")),
-                () -> Assertions.assertEquals(guildAccessType.getAccessType().toUpperCase(), response.jsonPath().get("guildview.guildAccessType"))
+                () -> Assertions.assertEquals(guild.getGuildId().toString(), response.jsonPath().get("guildId")),
+                () -> Assertions.assertEquals("Greedy Parasites", response.jsonPath().get("name")),
+                () -> Assertions.assertEquals("en", response.jsonPath().get("locale")),
+                () -> Assertions.assertEquals(guildAccessType.getAccessType().toUpperCase(), response.jsonPath().get("guildAccessType"))
         );
     }
 

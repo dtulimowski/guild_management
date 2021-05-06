@@ -2,9 +2,7 @@ package io.github.guild.application.controller.guild;
 
 import io.github.guild.application.controller.guild.request.CreateGuildRequest;
 import io.github.guild.application.controller.guild.response.CreateGuildResponse;
-import io.github.guild.application.controller.guild.response.GetGuildResponse;
 import io.github.guild.application.entity.GuildView;
-import io.github.guild.domain.entity.Guild;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +33,6 @@ public interface GuildApi {
     @GetMapping(value = "/{guildId}")
     @ApiResponse(responseCode = "200", description = "Guild found successfully")
     @ApiResponse(responseCode = "400", description = "Bad Request")
-    @ApiResponse(responseCode = "404", description = "Not Found")
-    ResponseEntity<GetGuildResponse> getByID(@PathVariable @NotNull UUID guildId);
+    @ApiResponse(responseCode = "404", description = "Guild not found")
+    ResponseEntity<GuildView> getByID(@PathVariable @NotNull UUID guildId);
 }
